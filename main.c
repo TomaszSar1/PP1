@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <math.h>
 #include <ctype.h>
+
+#include "Czesio.c"
 int is_prime(int a){
     int pom = 0;
     for (int i = 1; i <= a;i++) {
@@ -19,6 +21,7 @@ int tab[5][5] = {0};
 int pom[5][5] = {0};
 int wyn[50][2] = {0};
 int main(){
+    czesc("czesio");
     printf("Podaj liczby\n");
     for (int i = 0; i < 5; ++i) {
         for (int j = 0; j < 5; ++j) {
