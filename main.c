@@ -3,37 +3,48 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <time.h>
-int concat_begin(const int first[], int size, const int second[], int size2, int dest[], int size3) {
-    if (size + size2 > size3) return -2;
-    for (int i = 0; i < size2; i++) dest[i] = second[i];
-    for (int i = 0; i < size; i++) dest[size2 + i] = first[i];
-    return size + size2;
-}
-int concat_end(const int first[], int size, const int second[], int size2, int dest[], int size3) {
-    if (size + size2 > size3) return -2;
-    for (int i = 0; i < size; i++) dest[i] = first[i];
-    for (int i = 0; i < size2; i++) dest[size + i] = second[i];
-    return size + size2;
+
+const int MAX_SIZE = 1000;
+
+int sort_by_length(char tab[]){
+    if (tab == NULL)
+        return 1;
+
+    int n = strlen(tab);
+
+    if (n == 0)
+        return 1;
+
+    for (int i = 0; i < n - 1; i++){
+        for (int j = i + 1; j < n; j++){
+            if (strcmp(tab + i, tab + j) < 0){
+                char tmp[MAX_SIZE];
+                strcpy(tmp, tab + i);
+                strcpy(tab + i, tab + j);
+                strcpy(tab + j, tmp);
+            }
+        }
+    }
+
+    return 0;
 }
 
-int concat_zip(const int first[], int size, const int second[], int size2, int dest[], int size3) {
-    if (size + size2 > size3) return -2;
-    for (int i = 0; i < size; i++) dest[i * 2] = first[i];
-    for (int i = 0; i < size2; i++) dest[i * 2 + 1] = second[i];
-    return size + size2;
-}
-int read_vector(int vec[], int size, int stop_value) {
-    int count = 0;
-    while (count < size) {
-        int value;
-        scanf("%d", &value);
-        if (value == stop_value) break;
-        vec[count++] = value;
+int main(){
+    char tab[MAX_SIZE];
+
+    printf("Podaj tekst:\n");
+
+    if (fgets(tab, MAX_SIZE, stdin) == NULL){
+        printf("Incorrect input data\n");
+        return 2;
     }
-    return count;
-}
-void display_vector(const int vec[], int size){
-    for(int i=0; i < size; i++){
-        printf("%d ", vec[i]);
+
+    if (sort_by_length(tab) != 0){
+        printf("Incorrect input data\n");
+        return 2;
     }
+
+    printf("%s\n", tab);
+
+    return 0;
 }
